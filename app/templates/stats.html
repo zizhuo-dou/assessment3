@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Country with the Most Cities</h2>
+
+{% if country %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4 class="card-title">{{ country.name }}</h4>
+            <p>
+                <strong>{{ country.cities | length }}</strong> cities<br>
+                Total population: <strong>{{ total_population }}</strong><br>
+                Average population: <strong>{{ average_population }}</strong><br>
+                Largest city: <strong>{{ largest_city.name }}</strong> ({{ largest_city.population }})<br>
+                Smallest city: <strong>{{ smallest_city.name }}</strong> ({{ smallest_city.population }})
+            </p>
+        </div>
+    </div>
+
+    <h5>Top 3 Countries by Number of Cities:</h5>
+    <ol class="list-group list-group-numbered mb-4">
+        {% for c in top3 %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ c.name }}
+                <span class="badge bg-primary rounded-pill">{{ c.cities | length }}</span>
+            </li>
+        {% endfor %}
+    </ol>
+
+    <h5>Cities in {{ country.name }} (by population):</h5>
+    <ul class="list-group">
+        {% for city in country.cities | sort(attribute='population', reverse=True) %}
+            <li class="list-group-item">
+                {{ city.name }}{% if city.population %} — {{ city.population }}{% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No data available.</p>
+{% endif %}
+
+<a href="{{ url_for('main.index') }}" class="btn btn-secondary mt-4">Back to Home</a>
+{% endblock %}
+
+

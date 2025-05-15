@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Cities in {{ country.name }}</h2>
+<ul>
+    {% for city in country.cities %}
+        <li>{{ city.name }}{% if city.population %} ({{ city.population }}){% endif %}</li>
+    {% endfor %}
+</ul>
+<a href="/">Back to countries</a>
+{% endblock %}

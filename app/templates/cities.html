@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>City Search</h2>
+
+<form method="GET" action="{{ url_for('main.city_search') }}" class="mb-3 d-flex">
+    <input type="text" name="q" placeholder="Search city..." value="{{ q or '' }}" class="form-control me-2 w-50" />
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<ul class="list-group">
+    {% for city in cities %}
+        <li class="list-group-item d-flex justify-content-between">
+            <span>{{ city.name }}</span>
+            <span class="text-muted">{{ city.population or 0 }}</span>
+        </li>
+    {% else %}
+        <li class="list-group-item">No matching cities.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

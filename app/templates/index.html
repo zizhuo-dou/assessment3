@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">All Countries</h2>
+
+
+<form method="GET" action="{{ url_for('main.index') }}" class="mb-4 d-flex" role="search">
+    <input type="text" name="search" value="{{ search or '' }}" placeholder="Search countries..." class="form-control me-2 w-50" />
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+
+<ul class="list-group">
+    {% for country in countries %}
+        <li class="list-group-item">
+            <a href="{{ url_for('main.country_detail', country_id=country.id) }}">{{ country.name }}</a>
+        </li>
+    {% else %}
+        <li class="list-group-item">No countries found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
